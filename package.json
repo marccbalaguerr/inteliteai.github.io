@@ -30,8 +30,5 @@
     "type": "git",
     "url": "https://github.com/intelite-ai/landing"
   },
-  "homepage": "https://inteliteai.com",
-  "dependencies": {
-    "dompurify": "^3.3.1"
-  }
+  "homepage": "https://inteliteai.com"
 }
