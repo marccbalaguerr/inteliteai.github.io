@@ -1,3 +1,4 @@
+(function() {
 // --- 1. CONFIGURACIÓN ---
 const WEBHOOK_URL = 'https://n8n-n8n.u5h0lw.easypanel.host/webhook/666b81dc-5b98-47bc-98ab-0799ee48cdb5/chat';
         
@@ -11,10 +12,12 @@ const WEBHOOK_URL = 'https://n8n-n8n.u5h0lw.easypanel.host/webhook/666b81dc-5b98
             { label: "Limpiar chat", isClear: true }
         ];
 
-        // Evitar duplicados si Framer recarga
-        if (document.getElementById('intelite-widget-root')) return;
-
         // --- 2. ESTILOS CSS (Inyectados dinámicamente) ---
+        // Evitar duplicados si Framer recarga
+        if (document.getElementById('intelite-widget-root')) {
+            console.log('Widget ya existe, evitando duplicado');
+        } else {
+        // Solo crear el widget si no existe
         const style = document.createElement('style');
         style.innerHTML = `
             @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -341,3 +344,6 @@ sendBtn.addEventListener('click', sendMessage);
 userInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') sendMessage();
 });
+
+} // Fin del if que verifica si el widget no existe
+})(); // Fin de IIFE
