@@ -3,10 +3,6 @@
    Navegación, formularios y utilidades de página
    ============================================ */
 
-// Importar configuración de webhooks y rate limiting
-import { config } from './config.js';
-import { formLimiter } from './rateLimit.js';
-
 // Configuración inicial
 if (history.scrollRestoration) {
     history.scrollRestoration = 'manual';
@@ -158,8 +154,8 @@ function acceptCookies() {
     const contactForm = document.getElementById('contactForm');
     const formStatus = document.getElementById('formStatus');
 
-    // Webhook URL desde variables de entorno (ofuscado en build)
-    const WEBHOOK_URL = config.webhooks.form;
+    // Webhook URL
+    const WEBHOOK_URL = 'https://n8n-n8n.u5h0lw.easypanel.host/webhook/intelite-website-form-client-v1';
 
     if (!contactForm) return;
 
@@ -255,18 +251,6 @@ function acceptCookies() {
             email: document.getElementById('email').value,
             message: document.getElementById('message').value
         };
-
-        // Verificar rate limit
-        const limitCheck = formLimiter.checkLimit(rawData.email);
-        if (!limitCheck.allowed) {
-            formStatus.innerText = `Límite de envíos alcanzado. Espera ${Math.ceil(limitCheck.waitTime / 60)} minutos.`;
-            formStatus.classList.remove('hidden', 'text-green-600');
-            formStatus.classList.add('text-red-500');
-            submitBtn.innerText = originalBtnText;
-            submitBtn.disabled = false;
-            submitBtn.classList.remove('opacity-75');
-            return;
-        }
 
         // Validar antes de sanitizar
         const validation = validateForm(rawData);

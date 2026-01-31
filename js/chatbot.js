@@ -1,10 +1,5 @@
-// Importar funciones de seguridad, configuración y rate limiting
-import { sanitizeHTML, escapeHTML, generateSecureSessionId } from './security.js';
-import { config } from './config.js';
-import { chatLimiter } from './rateLimit.js';
-
 // --- 1. CONFIGURACIÓN ---
-const WEBHOOK_URL = config.webhooks.chatbot;
+const WEBHOOK_URL = 'https://n8n-n8n.u5h0lw.easypanel.host/webhook/666b81dc-5b98-47bc-98ab-0799ee48cdb5/chat';
         
         // Configuración de botones: { label: "Lo que se ve", text: "Lo que se envía" }
         const PREDEFINED_CHIPS = [
@@ -169,7 +164,7 @@ const WEBHOOK_URL = config.webhooks.chatbot;
         // Usar generación segura de session ID (Web Crypto API)
         let sessionId = localStorage.getItem('chatSessionId');
         if (!sessionId) {
-            sessionId = generateSecureSessionId();
+            sessionId = 'session-' + Math.random().toString(36).substr(2, 9) + Date.now();
             localStorage.setItem('chatSessionId', sessionId);
         }
 
@@ -232,7 +227,7 @@ const WEBHOOK_URL = config.webhooks.chatbot;
             messagesDiv.style.opacity = '0';
             setTimeout(() => {
                 messagesDiv.innerHTML = '';
-                sessionId = generateSecureSessionId();
+                sessionId = 'session-' + Math.random().toString(36).substr(2, 9) + Date.now();
                 localStorage.setItem('chatSessionId', sessionId);
                 addWelcomeMessage();
                 messagesDiv.style.opacity = '1';
@@ -243,7 +238,7 @@ const WEBHOOK_URL = config.webhooks.chatbot;
             chatContainer.classList.remove('open');
             setTimeout(() => {
                 messagesDiv.innerHTML = '';
-                sessionId = generateSecureSessionId();
+                sessionId = 'session-' + Math.random().toString(36).substr(2, 9) + Date.now();
                 localStorage.setItem('chatSessionId', sessionId);
                 addWelcomeMessage();
             }, 300);
@@ -259,8 +254,7 @@ const WEBHOOK_URL = config.webhooks.chatbot;
             let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
             // 2. Saltos de línea
             formatted = formatted.replace(/\n/g, '<br>');
-            // 3. Sanitizar HTML para prevenir XSS
-            return sanitizeHTML(formatted);
+            return formatted;
         }
 
         function addMessage(text, sender) {
@@ -270,8 +264,8 @@ const WEBHOOK_URL = config.webhooks.chatbot;
             const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             const label = sender === 'user' ? 'Cliente' : 'InteliteAI';
 
-            // Aplicar formato si es bot (permite markdown), escapar si es usuario (solo texto)
-            const contentHtml = sender === 'bot' ? formatMessageText(text) : escapeHTML(text);
+            // Aplicar formato si es bot (permite markdown), texto plano si es usuario
+            const contentHtml = sender === 'bot' ? formatMessageText(text) : text;
 
             msgDiv.innerHTML = `
                 <div class="int-msg-header">
@@ -315,13 +309,6 @@ const WEBHOOK_URL = config.webhooks.chatbot;
         async function sendMessage() {
             const text = userInput.value.trim();
             if (!text) return;
-
-            // Verificar rate limit
-            const limitCheck = chatLimiter.checkLimit(sessionId);
-            if (!limitCheck.allowed) {
-                addMessage(`Demasiados mensajes. Espera ${limitCheck.waitTime} segundos.`, 'bot');
-                return;
-            }
 
             addMessage(text, 'user');
             userInput.value = '';
