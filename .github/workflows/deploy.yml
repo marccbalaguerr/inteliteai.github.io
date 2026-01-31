@@ -17,9 +17,6 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,11 +30,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
-        env:
-          VITE_CHATBOT_WEBHOOK_URL: ${{ secrets.VITE_CHATBOT_WEBHOOK_URL }}
-          VITE_FORM_WEBHOOK_URL: ${{ secrets.VITE_FORM_WEBHOOK_URL }}
-        run: npm run build
+      - name: Create environment config
+        run: |
+          mkdir -p js
+          cat > js/config.js << 'EOF'
+          export const config = {
+            webhooks: {
+              chatbot: "${{ secrets.VITE_CHATBOT_WEBHOOK_URL }}",
+              form: "${{ secrets.VITE_FORM_WEBHOOK_URL }}"
+            }
+          };
+          EOF
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -45,7 +48,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: '.'
 
       - name: Deploy to GitHub Pages
         id: deployment

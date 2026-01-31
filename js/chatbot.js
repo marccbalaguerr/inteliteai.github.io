@@ -17,7 +17,7 @@ const WEBHOOK_URL = config.webhooks.chatbot;
         ];
 
         // Evitar duplicados si Framer recarga
-        if (!document.getElementById('intelite-widget-root')) {
+        if (document.getElementById('intelite-widget-root')) return;
 
         // --- 2. ESTILOS CSS (Inyectados dinámicamente) ---
         const style = document.createElement('style');
@@ -354,5 +354,3 @@ sendBtn.addEventListener('click', sendMessage);
 userInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') sendMessage();
 });
-
-} // Cierre del if (!document.getElementById('intelite-widget-root'))
