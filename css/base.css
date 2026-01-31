@@ -1,0 +1,220 @@
+/* ============================================
+   BASE STYLES - Intelite AI
+   Estilos globales, animaciones y utilidades
+   ============================================ */
+
+/* Variables CSS */
+:root {
+    --brand-blue: #006DE7;
+    --brand-dark-blue: #005bb5;
+    --brand-bg: #ECEDF1;
+    --brand-text: #111827;
+    --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+    --shadow-glow: 0 4px 20px -2px rgba(0, 109, 231, 0.3);
+    --shadow-widget: 0 20px 40px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* Reset y configuración global */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+body {
+    background-color: var(--brand-bg);
+    color: var(--brand-text);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Textura de fondo (noise) */
+.bg-noise {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* Navegación activa */
+.nav-active {
+    color: var(--brand-blue) !important;
+    background-color: white !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05) !important;
+    font-weight: 600 !important;
+}
+
+/* Animaciones de revelación */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animaciones de engranajes */
+@keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+.gear-cw {
+    animation: spin-slow 12s linear infinite;
+    transform-origin: center;
+}
+
+.gear-ccw {
+    animation: spin-reverse 12s linear infinite;
+    transform-origin: center;
+}
+
+/* Animaciones de chat bubbles */
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.chat-bubble-1 {
+    animation: popIn 0.5s ease-out forwards 0.2s;
+    opacity: 0;
+}
+
+.chat-bubble-2 {
+    animation: popIn 0.5s ease-out forwards 1.2s;
+    opacity: 0;
+}
+
+/* Animaciones de ondas de sonido */
+@keyframes soundwave {
+    0%, 100% { height: 20%; }
+    50% { height: 80%; }
+}
+
+.wave-bar {
+    width: 6px;
+    background-color: var(--brand-blue);
+    border-radius: 4px;
+    animation: soundwave 1s ease-in-out infinite;
+}
+
+.wave-bar:nth-child(1) { animation-delay: 0.1s; height: 40%; }
+.wave-bar:nth-child(2) { animation-delay: 0.3s; height: 60%; }
+.wave-bar:nth-child(3) { animation-delay: 0.0s; height: 80%; }
+.wave-bar:nth-child(4) { animation-delay: 0.4s; height: 50%; }
+.wave-bar:nth-child(5) { animation-delay: 0.2s; height: 30%; }
+
+/* Animación de pulso */
+@keyframes pulse-ring {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.pulse-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--brand-blue);
+    opacity: 0;
+    animation: pulse-ring 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* Estilos de acordeón */
+.accordion-active {
+    border-color: rgba(0, 109, 231, 0.4) !important;
+    box-shadow: 0 4px 20px -2px rgba(0, 109, 231, 0.1) !important;
+}
+
+.accordion-active .accordion-icon {
+    transform: rotate(45deg);
+    color: var(--brand-blue);
+}
+
+.accordion-active .accordion-title {
+    color: var(--brand-blue);
+}
+
+/* Logos de tecnologías */
+.tech-logo img {
+    filter: grayscale(100%);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.tech-logo:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.tech-logo span {
+    color: #9CA3AF;
+    transition: all 0.3s ease;
+}
+
+.tech-logo:hover span {
+    color: var(--brand-text);
+}
+
+.tech-logo i {
+    transition: all 0.3s ease;
+}
+
+/* Botón de scroll to top */
+#scrollTopBtn {
+    transition: all 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+}
+
+#scrollTopBtn.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/* Utilidades generales */
+.fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

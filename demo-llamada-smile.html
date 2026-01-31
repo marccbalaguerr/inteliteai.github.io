@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Demo en Vivo | Intelite AI</title>
+    <link rel="icon" href="/assets/images/diamante-1.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-blue: #006DE7;
+            --brand-dark-blue: #005bb5;
+            --brand-bg: #ECEDF1;
+            --ios-bg: #1c1c1e;
+            --ios-text: #ffffff;
+            --ios-gray: #8e8e93;
+            --ios-green: #34c759;
+            --ios-red: #ff3b30;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--brand-bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            height: 40px;
+        }
+
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--brand-blue);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: opacity 0.3s;
+        }
+
+        .back-link:hover {
+            opacity: 0.7;
+        }
+
+        /* Title Section */
+        .title-section {
+            text-align: center;
+            margin-bottom: 50px;
+            max-width: 800px;
+        }
+
+        .title-section h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .title-section p {
+            color: #6b7280;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* Main Content Container */
+        .content-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+        }
+
+        /* iPhone Container */
+        .iphone-container {
+            position: relative;
+            width: 320px;
+            height: 650px;
+            background: #000;
+            border-radius: 50px;
+            padding: 12px;
+            box-shadow:
+                0 50px 100px -20px rgba(0, 0, 0, 0.25),
+                0 30px 60px -30px rgba(0, 0, 0, 0.3),
+                inset 0 0 0 2px #333;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #1c1c1e 0%, #2c2c2e 100%);
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Dynamic Island */
+        .dynamic-island {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 35px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .dynamic-island.expanded {
+            width: 240px;
+            height: 65px;
+            border-radius: 30px;
+        }
+
+        .dynamic-island-content {
+            display: none;
+            width: 100%;
+            padding: 0 15px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dynamic-island.expanded .dynamic-island-content {
+            display: flex;
+        }
+
+        .di-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .di-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .di-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .di-info {
+            color: white;
+        }
+
+        .di-name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .di-status {
+            font-size: 11px;
+            color: var(--ios-green);
+        }
+
+        .di-waveform {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 30px;
+        }
+
+        .di-wave-bar {
+            width: 3px;
+            background: var(--ios-green);
+            border-radius: 2px;
+            transition: height 0.1s ease;
+        }
+
+        /* Call Screen */
+        .call-screen {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 70px 20px 20px;
+            color: var(--ios-text);
+            overflow: hidden;
+        }
+
+        .caller-avatar {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            flex-shrink: 0;
+        }
+
+        .caller-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .caller-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            flex-shrink: 0;
+        }
+
+        .call-status {
+            font-size: 15px;
+            color: var(--ios-gray);
+            margin-bottom: 15px;
+            flex-shrink: 0;
+        }
+
+        .call-status.active {
+            color: var(--ios-green);
+        }
+
+        /* Waveform Visualizer */
+        .waveform-container {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            margin: 10px 0;
+            padding: 0 10px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .wave-bar {
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(180deg, var(--brand-blue), #4da3ff);
+            border-radius: 2px;
+            transition: height 0.05s ease;
+            flex-shrink: 0;
+        }
+
+        .wave-bar.active {
+            animation: none;
+        }
+
+        /* Call Actions */
+        .call-actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: auto;
+            padding: 0 15px 15px;
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn button {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .action-btn button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .action-btn button svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .action-btn span {
+            display: none;
+        }
+
+        .end-call-btn {
+            grid-column: 1 / -1;
+            justify-content: center;
+            margin-top: 8px;
+        }
+
+        .end-call-btn button {
+            background: var(--ios-red) !important;
+            width: 60px;
+            height: 60px;
+        }
+
+        .end-call-btn button:hover {
+            background: #ff5147 !important;
+        }
+
+        .call-btn {
+            grid-column: 1 / -1;
+            justify-content: center;
+            margin-top: 8px;
+        }
+
+        .call-btn button {
+            background: var(--ios-green) !important;
+            width: 60px;
+            height: 60px;
+        }
+
+        .call-btn button:hover {
+            background: #2db84e !important;
+        }
+
+        .call-btn button:disabled {
+            background: #555 !important;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Results Section */
+        .results-section {
+            width: 100%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 24px;
+            padding: 50px 60px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .results-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 15px;
+        }
+
+        .results-header p {
+            font-size: 1.1rem;
+            color: #6b7280;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #f3f4f6;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #e5e7eb;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .video-placeholder {
+            text-align: center;
+            color: #9ca3af;
+            padding: 40px;
+        }
+
+        .video-placeholder svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            color: #d1d5db;
+        }
+
+        .video-placeholder p {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 13px;
+            padding-bottom: 40px;
+        }
+
+        .footer a {
+            color: var(--brand-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title-section h1 {
+                font-size: 2rem;
+            }
+
+            .title-section p {
+                font-size: 1rem;
+            }
+
+            .iphone-container {
+                width: 280px;
+                height: 570px;
+                border-radius: 45px;
+            }
+
+            .iphone-screen {
+                border-radius: 35px;
+            }
+
+            .call-screen {
+                padding: 55px 12px 20px;
+            }
+
+            .caller-avatar {
+                width: 90px;
+                height: 90px;
+            }
+
+            .caller-name {
+                font-size: 22px;
+            }
+
+            .waveform-container {
+                height: 70px;
+                gap: 3px;
+            }
+
+            .wave-bar {
+                width: 3px;
+            }
+
+            .call-actions {
+                gap: 12px;
+                padding: 0 10px 25px;
+            }
+
+            .action-btn button {
+                width: 50px;
+                height: 50px;
+            }
+
+            .action-btn button svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            .end-call-btn button,
+            .call-btn button {
+                width: 60px;
+                height: 60px;
+            }
+
+            .end-call-btn,
+            .call-btn {
+                margin-top: 8px;
+            }
+
+            .dynamic-island.expanded {
+                width: 200px;
+                height: 55px;
+            }
+
+            .di-avatar {
+                width: 32px;
+                height: 32px;
+            }
+
+            .di-name {
+                font-size: 12px;
+            }
+
+            .di-status {
+                font-size: 10px;
+            }
+
+            .results-section {
+                padding: 35px 30px;
+            }
+
+            .results-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .results-header p {
+                font-size: 1rem;
+            }
+
+            .content-wrapper {
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .title-section h1 {
+                font-size: 1.6rem;
+            }
+
+            .iphone-container {
+                width: 260px;
+                height: 530px;
+                border-radius: 40px;
+                padding: 10px;
+            }
+
+            .iphone-screen {
+                border-radius: 32px;
+            }
+
+            .call-screen {
+                padding: 50px 10px 15px;
+            }
+
+            .caller-avatar {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 10px;
+            }
+
+            .caller-name {
+                font-size: 18px;
+                margin-bottom: 5px;
+            }
+
+            .call-status {
+                font-size: 13px;
+                margin-bottom: 15px;
+            }
+
+            .waveform-container {
+                height: 50px;
+                gap: 2px;
+                margin: 10px 0;
+                padding: 0 5px;
+            }
+
+            .wave-bar {
+                width: 2px;
+            }
+
+            .call-actions {
+                gap: 10px;
+                padding: 0 8px 20px;
+            }
+
+            .action-btn button {
+                width: 45px;
+                height: 45px;
+            }
+
+            .action-btn button svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .end-call-btn button,
+            .call-btn button {
+                width: 55px;
+                height: 55px;
+            }
+
+            .end-call-btn,
+            .call-btn {
+                margin-top: 5px;
+            }
+
+            .dynamic-island {
+                width: 90px;
+                height: 28px;
+                border-radius: 14px;
+            }
+
+            .dynamic-island.expanded {
+                width: 180px;
+                height: 50px;
+                border-radius: 24px;
+            }
+
+            .dynamic-island-content {
+                padding: 0 8px;
+            }
+
+            .di-avatar {
+                width: 28px;
+                height: 28px;
+            }
+
+            .di-left {
+                gap: 8px;
+            }
+
+            .di-name {
+                font-size: 11px;
+            }
+
+            .di-status {
+                font-size: 9px;
+            }
+
+            .di-waveform {
+                gap: 2px;
+                height: 25px;
+            }
+
+            .di-wave-bar {
+                width: 2px;
+            }
+
+            .results-section {
+                padding: 25px 20px;
+            }
+
+            .results-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <img src="/assets/images/logo1200.png" alt="Intelite AI" class="logo">
+        <a href="index.html" class="back-link">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Volver al inicio
+        </a>
+    </header>
+
+    <!-- Title -->
+    <section class="title-section">
+        <h1>Demostración de Nuestro Agente de IA</h1>
+        <p>Observa cómo nuestro asistente de voz inteligente gestiona llamadas reales y agenda citas automáticamente</p>
+    </section>
+
+    <!-- Personalization Section -->
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <!-- iPhone Mockup -->
+        <div class="iphone-container">
+            <div class="iphone-screen">
+                <!-- Dynamic Island -->
+                <div class="dynamic-island" id="dynamicIsland">
+                    <div class="dynamic-island-content">
+                        <div class="di-left">
+                            <div class="di-avatar">
+                                <img src="https://images.gestionaweb.cat/4583/pqimg-640-640/3.png" alt="Avatar">
+                            </div>
+                            <div class="di-info">
+                                <div class="di-name" id="diCallerName">Smile Estudio</div>
+                                <div class="di-status" id="diStatus">En llamada</div>
+                            </div>
+                        </div>
+                        <div class="di-waveform" id="diWaveform">
+                            <!-- Mini waveform bars -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call Screen -->
+                <div class="call-screen">
+                    <div class="caller-avatar">
+                        <img src="https://images.gestionaweb.cat/4583/pqimg-640-640/3.png" alt="Intelite AI">
+                    </div>
+                    <div class="caller-name" id="callerName">Smile Estudio</div>
+                    <div class="call-status" id="callStatus">Toca llamar para iniciar</div>
+
+                    <!-- Waveform Visualizer -->
+                    <div class="waveform-container" id="waveform">
+                        <!-- Wave bars will be generated by JS -->
+                    </div>
+
+                    <!-- Call Timer -->
+                    <div class="call-status active" id="callTimer" style="display: none;">00:00</div>
+
+                    <!-- Call Actions -->
+                    <div class="call-actions">
+                        <div class="action-btn">
+                            <button id="muteBtn">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>
+                                </svg>
+                            </button>
+                            <span>Silenciar</span>
+                        </div>
+                        <div class="action-btn">
+                            <button id="speakerBtn">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                                </svg>
+                            </button>
+                            <span>Altavoz</span>
+                        </div>
+                        <div class="action-btn">
+                            <button id="keypadBtn">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+                                </svg>
+                            </button>
+                            <span>Teclado</span>
+                        </div>
+
+                        <!-- Call Button (shown when not in call) -->
+                        <div class="action-btn call-btn" id="callBtnWrapper">
+                            <button id="callBtn">
+                                <svg fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.43-5.15-3.75-6.58-6.59l1.97-1.57c.23-.23.33-.55.23-1.01-.36-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3.28 3 3.93 3 4.74c0 9.27 7.53 16.8 16.8 16.8.81 0 1.46-.65 1.46-1.19v-3.98c0-.54-.45-.99-.99-.99z"/>
+                                </svg>
+                            </button>
+                            <span>Llamar</span>
+                        </div>
+
+                        <!-- End Call Button (shown during call) -->
+                        <div class="action-btn end-call-btn" id="endCallBtnWrapper" style="display: none;">
+                            <button id="endCallBtn">
+                                <svg fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08c-.18-.17-.29-.42-.29-.7 0-.28.11-.53.29-.71C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.11-.7-.28-.79-.74-1.68-1.36-2.66-1.85-.33-.16-.56-.5-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z"/>
+                                </svg>
+                            </button>
+                            <span>Colgar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <section class="results-section">
+            <div class="results-header">
+                <h2>Resultados Automáticos en Tiempo Real</h2>
+                <p>Tras cada llamada, nuestro sistema registra automáticamente la información en tu CRM. Observa cómo las citas se organizan sin intervención manual.</p>
+            </div>
+            <div class="video-container">
+                <video controls>
+                    <source src="/assets/images/demo.mp4" type="video/mp4">
+                    Tu navegador no soporta el elemento de video.
+                </video>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 <a href="index.html">Intelite AI</a> • Todos los derechos reservados</p>
+    </footer>
+
+    <!-- Audio Element -->
+    <audio id="audioPlayer"></audio>
+
+    <script>
+        // ==================== CONFIGURATION ====================
+        // Replace this URL with your audio file
+        const AUDIO_URL = '/assets/images/demo.mp3';
+        let CALLER_NAME = 'Smile Estudio'; // Se puede personalizar
+
+        // ==================== PERSONALIZATION ====================
+        function aplicarPersonalizacion() {
+            const empresaInput = document.getElementById('empresaInput');
+            const sectorSelect = document.getElementById('sectorSelect');
+            const personalizationSection = document.getElementById('personalizationSection');
+
+            const nombreEmpresa = empresaInput.value.trim() || 'Tu Empresa';
+            const sector = sectorSelect.value;
+
+            // Update caller name
+            CALLER_NAME = nombreEmpresa;
+            document.getElementById('callerName').textContent = CALLER_NAME;
+            document.getElementById('diCallerName').textContent = CALLER_NAME;
+
+            // Update title based on sector
+            const sectorTitles = {
+                'clinica': 'Agente de Voz para Clinicas',
+                'inmobiliaria': 'Agente de Voz para Inmobiliarias',
+                'restaurante': 'Agente de Voz para Restaurantes',
+                'servicios': 'Agente de Voz para Empresas'
+            };
+
+            // Hide personalization section with animation
+            personalizationSection.style.opacity = '0';
+            personalizationSection.style.transform = 'translateY(-20px)';
+            personalizationSection.style.transition = 'all 0.3s ease';
+
+            setTimeout(() => {
+                personalizationSection.style.display = 'none';
+            }, 300);
+
+            // Scroll to demo
+            document.querySelector('.content-wrapper').scrollIntoView({ behavior: 'smooth' });
+
+            // Store in localStorage
+            localStorage.setItem('demo_empresa', nombreEmpresa);
+            localStorage.setItem('demo_sector', sector);
+        }
+
+        // Load saved personalization
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedEmpresa = localStorage.getItem('demo_empresa');
+            const savedSector = localStorage.getItem('demo_sector');
+
+            if (savedEmpresa) {
+                document.getElementById('empresaInput').value = savedEmpresa;
+            }
+            if (savedSector) {
+                document.getElementById('sectorSelect').value = savedSector;
+            }
+        });
+
+        // ==================== ELEMENTS ====================
+        const audioPlayer = document.getElementById('audioPlayer');
+        const callBtn = document.getElementById('callBtn');
+        const callBtnWrapper = document.getElementById('callBtnWrapper');
+        const endCallBtn = document.getElementById('endCallBtn');
+        const endCallBtnWrapper = document.getElementById('endCallBtnWrapper');
+        const waveform = document.getElementById('waveform');
+        const callStatus = document.getElementById('callStatus');
+        const callTimer = document.getElementById('callTimer');
+        const callerName = document.getElementById('callerName');
+        const dynamicIsland = document.getElementById('dynamicIsland');
+        const diCallerName = document.getElementById('diCallerName');
+        const diWaveform = document.getElementById('diWaveform');
+
+        // ==================== AUDIO SETUP ====================
+        audioPlayer.src = AUDIO_URL;
+        callerName.textContent = CALLER_NAME;
+        diCallerName.textContent = CALLER_NAME;
+
+        let audioContext;
+        let analyser;
+        let dataArray;
+        let animationId;
+        let isPlaying = false;
+        let timerInterval;
+        let startTime;
+
+        // Number of wave bars
+        const NUM_BARS = 30;
+        const DI_NUM_BARS = 8;
+
+        // ==================== WAVE BARS CREATION ====================
+        function createWaveBars() {
+            waveform.innerHTML = '';
+            for (let i = 0; i < NUM_BARS; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'wave-bar';
+                bar.style.height = '20px';
+                waveform.appendChild(bar);
+            }
+        }
+
+        function createDIWaveBars() {
+            diWaveform.innerHTML = '';
+            for (let i = 0; i < DI_NUM_BARS; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'di-wave-bar';
+                bar.style.height = '8px';
+                diWaveform.appendChild(bar);
+            }
+        }
+
+        createWaveBars();
+        createDIWaveBars();
+
+        // ==================== BUTTON HANDLERS ====================
+        callBtn.addEventListener('click', () => {
+            playAudio();
+        });
+
+        endCallBtn.addEventListener('click', () => {
+            stopAudio();
+        });
+
+        // ==================== AUDIO FUNCTIONS ====================
+        function playAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const source = audioContext.createMediaElementSource(audioPlayer);
+                analyser = audioContext.createAnalyser();
+                analyser.fftSize = 128;
+                source.connect(analyser);
+                analyser.connect(audioContext.destination);
+                dataArray = new Uint8Array(analyser.frequencyBinCount);
+            }
+
+            audioPlayer.play();
+            isPlaying = true;
+
+            // Update UI
+            callBtnWrapper.style.display = 'none';
+            endCallBtnWrapper.style.display = 'flex';
+            callStatus.textContent = 'En llamada...';
+            callStatus.classList.add('active');
+            callTimer.style.display = 'block';
+
+            // Expand dynamic island
+            dynamicIsland.classList.add('expanded');
+
+            // Start timer
+            startTime = Date.now() - (audioPlayer.currentTime * 1000);
+            timerInterval = setInterval(updateTimer, 1000);
+
+            // Start visualization
+            visualize();
+        }
+
+        function stopAudio() {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+            isPlaying = false;
+
+            // Update UI
+            callBtnWrapper.style.display = 'flex';
+            endCallBtnWrapper.style.display = 'none';
+            callStatus.textContent = 'Llamada finalizada';
+            callStatus.classList.remove('active');
+            callTimer.style.display = 'none';
+            callTimer.textContent = '00:00';
+
+            // Collapse dynamic island
+            dynamicIsland.classList.remove('expanded');
+
+            // Stop timer
+            clearInterval(timerInterval);
+
+            // Stop visualization and reset bars
+            cancelAnimationFrame(animationId);
+            resetWaveBars();
+        }
+
+        function updateTimer() {
+            const elapsed = Date.now() - startTime;
+            const minutes = Math.floor(elapsed / 60000);
+            const seconds = Math.floor((elapsed % 60000) / 1000);
+            callTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function visualize() {
+            animationId = requestAnimationFrame(visualize);
+
+            analyser.getByteFrequencyData(dataArray);
+
+            const bars = waveform.querySelectorAll('.wave-bar');
+            const diBars = diWaveform.querySelectorAll('.di-wave-bar');
+
+            // Main waveform
+            for (let i = 0; i < bars.length; i++) {
+                const index = Math.floor(i * dataArray.length / bars.length);
+                const value = dataArray[index];
+                const height = Math.max(4, (value / 255) * 80);
+                bars[i].style.height = `${height}px`;
+            }
+
+            // Dynamic island mini waveform
+            for (let i = 0; i < diBars.length; i++) {
+                const index = Math.floor(i * dataArray.length / diBars.length);
+                const value = dataArray[index];
+                const height = Math.max(4, (value / 255) * 25);
+                diBars[i].style.height = `${height}px`;
+            }
+        }
+
+        function resetWaveBars() {
+            const bars = waveform.querySelectorAll('.wave-bar');
+            const diBars = diWaveform.querySelectorAll('.di-wave-bar');
+
+            bars.forEach(bar => bar.style.height = '20px');
+            diBars.forEach(bar => bar.style.height = '8px');
+        }
+
+        // Audio ended handler
+        audioPlayer.addEventListener('ended', () => {
+            stopAudio();
+            callStatus.textContent = 'Llamada finalizada';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# Robots.txt para Intelite AI
+# https://inteliteai.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://inteliteai.com/sitemap.xml
+
+# Bloquear carpetas de desarrollo
+User-agent: *
+Disallow: /node_modules/
+Disallow: /.git/
+
+# Optimización para Googlebot
+User-agent: Googlebot
+Allow: /
+
+# Optimización para Googlebot-Image
+User-agent: Googlebot-Image
+Allow: /assets/images/

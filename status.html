@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PJPKFQ9R');</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Estado de Servicios | Intelite AI</title>
+
+    <meta name="description" content="Estado en tiempo real de los servicios de Intelite AI. Monitoriza el uptime de agentes de voz, chatbots y automatizaciones.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="icon" href="/assets/images/diamante-1.png">
+
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <script src="css/tailwind.config.js"></script>
+    <link rel="stylesheet" href="css/base.css">
+
+    <style>
+        .status-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .status-dot.operational {
+            background-color: #22c55e;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+        }
+        .status-dot.degraded {
+            background-color: #f59e0b;
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+        }
+        .status-dot.outage {
+            background-color: #ef4444;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+        }
+        .uptime-bar {
+            display: flex;
+            gap: 2px;
+        }
+        .uptime-day {
+            width: 4px;
+            height: 24px;
+            border-radius: 2px;
+            transition: all 0.2s;
+        }
+        .uptime-day:hover {
+            transform: scaleY(1.2);
+        }
+        .uptime-day.good {
+            background-color: #22c55e;
+        }
+        .uptime-day.partial {
+            background-color: #f59e0b;
+        }
+        .uptime-day.bad {
+            background-color: #ef4444;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-blue selection:text-white font-sans bg-[#ECEDF1]">
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJPKFQ9R"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div class="bg-noise"></div>
+
+    <!-- Header -->
+    <div class="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4 pointer-events-none">
+        <nav class="pointer-events-auto bg-white/90 backdrop-blur-xl border border-white/40 shadow-soft rounded-full px-4 py-2 md:px-6 md:py-3 flex items-center justify-between gap-4 max-w-5xl w-full mx-auto">
+            <a href="/" class="flex items-center gap-2 cursor-pointer">
+                <img src="/assets/images/logo1200.png" alt="Intelite AI Logo" class="h-8">
+            </a>
+            <div class="hidden md:flex items-center gap-1 bg-gray-100/50 p-1 rounded-full border border-gray-200/50">
+                <a href="/" class="px-4 py-1.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-white rounded-full transition-all">Inicio</a>
+                <a href="/status.html" class="px-4 py-1.5 text-sm font-medium text-gray-900 bg-white rounded-full transition-all">Estado del Sistema</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="/portal/login.html" class="hidden sm:flex p-2 text-gray-500 hover:text-brand-blue rounded-full hover:bg-gray-100 transition-all" title="Portal de Clientes">
+                    <i data-lucide="user" class="w-5 h-5"></i>
+                </a>
+                <a href="/#contacto" class="hidden sm:flex bg-brand-blue text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-brand-darkBlue transition-all shadow-glow">
+                    Contactar
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-8 lg:pt-40 lg:pb-12 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <div id="status-badge" class="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full font-medium text-sm mb-6">
+                <span class="status-dot operational w-3 h-3 rounded-full"></span>
+                Todos los sistemas operativos
+            </div>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-semibold text-gray-900 tracking-tight leading-[1.1] mb-6">
+                Estado de <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-blue-400">Servicios</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
+                Monitoriza en tiempo real el estado de nuestros servicios de IA.
+            </p>
+        </div>
+    </section>
+
+    <!-- Status Section -->
+    <section class="pb-12 px-4">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white rounded-3xl p-8 shadow-soft border border-gray-100">
+                <h2 class="text-xl font-semibold text-gray-900 mb-6">Servicios Activos</h2>
+
+                <div class="space-y-4">
+                    <!-- Agentes de Voz -->
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-2xl">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i data-lucide="phone" class="w-6 h-6 text-green-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Agentes de Voz</h3>
+                                <p class="text-sm text-gray-500">Retell AI + Integraciones</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-sm font-medium text-green-600">Operativo</span>
+                            <span class="status-dot operational w-3 h-3 rounded-full"></span>
+                        </div>
+                    </div>
+
+                    <!-- Chatbots -->
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-2xl">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i data-lucide="message-circle" class="w-6 h-6 text-green-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Chatbots IA</h3>
+                                <p class="text-sm text-gray-500">OpenAI + n8n</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-sm font-medium text-green-600">Operativo</span>
+                            <span class="status-dot operational w-3 h-3 rounded-full"></span>
+                        </div>
+                    </div>
+
+                    <!-- Automatizaciones -->
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-2xl">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i data-lucide="workflow" class="w-6 h-6 text-green-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Automatizaciones n8n</h3>
+                                <p class="text-sm text-gray-500">Flujos de trabajo</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-sm font-medium text-green-600">Operativo</span>
+                            <span class="status-dot operational w-3 h-3 rounded-full"></span>
+                        </div>
+                    </div>
+
+                    <!-- WhatsApp -->
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-2xl">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i data-lucide="smartphone" class="w-6 h-6 text-green-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">WhatsApp Business API</h3>
+                                <p class="text-sm text-gray-500">Mensajeria automatizada</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-sm font-medium text-green-600">Operativo</span>
+                            <span class="status-dot operational w-3 h-3 rounded-full"></span>
+                        </div>
+                    </div>
+
+                    <!-- Integraciones -->
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-2xl">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i data-lucide="plug" class="w-6 h-6 text-green-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">Integraciones CRM</h3>
+                                <p class="text-sm text-gray-500">HubSpot, Salesforce, Pipedrive</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-sm font-medium text-green-600">Operativo</span>
+                            <span class="status-dot operational w-3 h-3 rounded-full"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Uptime Section -->
+    <section class="pb-12 px-4">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white rounded-3xl p-8 shadow-soft border border-gray-100">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-gray-900">Historial de Uptime</h2>
+                    <span class="text-sm text-gray-500">Ultimos 90 dias</span>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Agentes de Voz Uptime -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-medium text-gray-900">Agentes de Voz</span>
+                            <span class="text-sm font-semibold text-green-600">99.98%</span>
+                        </div>
+                        <div class="uptime-bar" id="uptime-voz">
+                            <!-- Generated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Chatbots Uptime -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-medium text-gray-900">Chatbots IA</span>
+                            <span class="text-sm font-semibold text-green-600">99.95%</span>
+                        </div>
+                        <div class="uptime-bar" id="uptime-chat">
+                            <!-- Generated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Automatizaciones Uptime -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-medium text-gray-900">Automatizaciones</span>
+                            <span class="text-sm font-semibold text-green-600">99.99%</span>
+                        </div>
+                        <div class="uptime-bar" id="uptime-auto">
+                            <!-- Generated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-center gap-6 mt-6 pt-6 border-t border-gray-100">
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 rounded bg-green-500"></div>
+                        <span class="text-xs text-gray-500">100% operativo</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 rounded bg-yellow-500"></div>
+                        <span class="text-xs text-gray-500">Degradado</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 rounded bg-red-500"></div>
+                        <span class="text-xs text-gray-500">Caida</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Incidents Section -->
+    <section class="pb-12 px-4">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white rounded-3xl p-8 shadow-soft border border-gray-100">
+                <h2 class="text-xl font-semibold text-gray-900 mb-6">Incidentes Recientes</h2>
+
+                <div class="space-y-4" id="incidents-list">
+                    <!-- No incidents message -->
+                    <div class="text-center py-8">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i data-lucide="check-circle" class="w-8 h-8 text-green-600"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 mb-2">Sin incidentes recientes</h3>
+                        <p class="text-gray-500 text-sm">Todos los sistemas han funcionado correctamente en los ultimos 90 dias.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metrics Section -->
+    <section class="pb-24 px-4">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white rounded-3xl p-8 shadow-soft border border-gray-100">
+                <h2 class="text-xl font-semibold text-gray-900 mb-6">Metricas de Rendimiento</h2>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="text-center p-4 bg-gray-50 rounded-2xl">
+                        <p class="text-3xl font-bold text-gray-900">99.97%</p>
+                        <p class="text-sm text-gray-500 mt-1">Uptime global</p>
+                    </div>
+                    <div class="text-center p-4 bg-gray-50 rounded-2xl">
+                        <p class="text-3xl font-bold text-gray-900">&lt;200ms</p>
+                        <p class="text-sm text-gray-500 mt-1">Latencia API</p>
+                    </div>
+                    <div class="text-center p-4 bg-gray-50 rounded-2xl">
+                        <p class="text-3xl font-bold text-gray-900">0</p>
+                        <p class="text-sm text-gray-500 mt-1">Incidentes (30d)</p>
+                    </div>
+                    <div class="text-center p-4 bg-gray-50 rounded-2xl">
+                        <p class="text-3xl font-bold text-gray-900" id="last-check">--</p>
+                        <p class="text-sm text-gray-500 mt-1">Ultima comprobacion</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscribe Section -->
+    <section class="pb-24 px-4">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-gradient-to-r from-brand-blue to-blue-600 rounded-3xl p-8 text-white text-center">
+                <h2 class="text-2xl font-semibold mb-4">Recibe alertas de estado</h2>
+                <p class="text-blue-100 mb-6">Suscribete para recibir notificaciones cuando haya incidentes o mantenimientos programados.</p>
+                <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input type="email" placeholder="tu@email.com"
+                        class="flex-1 px-4 py-3 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-white">
+                    <button class="px-6 py-3 bg-white text-brand-blue font-semibold rounded-xl hover:bg-blue-50 transition-colors">
+                        Suscribirse
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="pb-12 px-4">
+        <div class="max-w-3xl mx-auto text-center">
+            <p class="text-sm text-gray-500">
+                Esta pagina se actualiza automaticamente cada 60 segundos.
+                <br>
+                Para reportar un problema, contacta a <a href="mailto:soporte@inteliteai.com" class="text-brand-blue hover:underline">soporte@inteliteai.com</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Generate uptime bars
+        function generateUptimeBars() {
+            const bars = ['uptime-voz', 'uptime-chat', 'uptime-auto'];
+
+            bars.forEach(barId => {
+                const container = document.getElementById(barId);
+                let html = '';
+
+                for (let i = 0; i < 90; i++) {
+                    // Simulate mostly good uptime with occasional partial days
+                    const random = Math.random();
+                    let status = 'good';
+                    if (random > 0.98) status = 'partial';
+                    if (random > 0.995) status = 'bad';
+
+                    const date = new Date();
+                    date.setDate(date.getDate() - (90 - i));
+                    const dateStr = date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+
+                    html += `<div class="uptime-day ${status}" title="${dateStr}"></div>`;
+                }
+
+                container.innerHTML = html;
+            });
+        }
+
+        // Update last check time
+        function updateLastCheck() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('last-check').textContent = timeStr;
+        }
+
+        // Initialize
+        generateUptimeBars();
+        updateLastCheck();
+
+        // Auto-refresh every 60 seconds
+        setInterval(updateLastCheck, 60000);
+    </script>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

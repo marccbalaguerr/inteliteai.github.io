@@ -1,0 +1,37 @@
+{
+  "name": "intelite-ai-landing",
+  "version": "2.0.0",
+  "description": "Landing page profesional de Intelite AI - Refactorizada y optimizada",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "python -m http.server 8000"
+  },
+  "keywords": [
+    "landing-page",
+    "ai",
+    "automation",
+    "intelite",
+    "n8n",
+    "chatbot"
+  ],
+  "author": "Intelite AI (Pau Balaguer, Marc Balaguer, Pablo Álvarez)",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "sharp": "^0.34.5",
+    "tailwindcss": "^3.4.0",
+    "vite": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/intelite-ai/landing"
+  },
+  "homepage": "https://inteliteai.com",
+  "dependencies": {
+    "dompurify": "^3.3.1"
+  }
+}

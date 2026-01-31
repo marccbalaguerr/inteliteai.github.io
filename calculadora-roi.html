@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PJPKFQ9R');</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Calculadora de ROI | Calcula tu Ahorro con IA | Intelite AI</title>
+
+    <meta name="description" content="Calcula cuanto puedes ahorrar automatizando tu negocio con IA. Calculadora gratuita de retorno de inversion para empresas en Alicante.">
+    <meta name="keywords" content="calculadora roi ia, ahorro automatizacion, retorno inversion ia, calculadora ahorro empresa">
+    <meta name="author" content="Intelite AI">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://inteliteai.com/calculadora-roi.html">
+
+    <meta name="geo.region" content="ES-VC">
+    <meta name="geo.placename" content="San Juan de Alicante, Alicante">
+
+    <meta property="og:title" content="Calculadora de ROI | Intelite AI">
+    <meta property="og:description" content="Calcula cuanto puedes ahorrar automatizando tu negocio con IA.">
+    <meta property="og:image" content="https://inteliteai.com/assets/images/og-image.jpg">
+    <meta property="og:url" content="https://inteliteai.com/calculadora-roi.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_ES">
+
+    <link rel="icon" href="/assets/images/diamante-1.png">
+
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="css/tailwind.config.js"></script>
+    <link rel="stylesheet" href="css/base.css">
+</head>
+<body class="antialiased selection:bg-brand-blue selection:text-white font-sans bg-[#ECEDF1]">
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJPKFQ9R"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div class="bg-noise"></div>
+
+    <!-- Header -->
+    <div class="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4 pointer-events-none">
+        <nav class="pointer-events-auto bg-white/90 backdrop-blur-xl border border-white/40 shadow-soft rounded-full px-4 py-2 md:px-6 md:py-3 flex items-center justify-between gap-4 max-w-5xl w-full mx-auto">
+            <a href="/" class="flex items-center gap-2 cursor-pointer">
+                <img src="/assets/images/logo1200.png" alt="Intelite AI Logo" class="h-8">
+            </a>
+            <div class="hidden md:flex items-center gap-1 bg-gray-100/50 p-1 rounded-full border border-gray-200/50">
+                <a href="/" class="px-4 py-1.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-white rounded-full transition-all">Inicio</a>
+                <a href="/calculadora-roi.html" class="px-4 py-1.5 text-sm font-medium text-gray-900 bg-white rounded-full transition-all">Calculadora ROI</a>
+                <a href="/configurador.html" class="px-4 py-1.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-white rounded-full transition-all">Configurador</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="/portal/login.html" class="hidden sm:flex p-2 text-gray-500 hover:text-brand-blue rounded-full hover:bg-gray-100 transition-all" title="Portal de Clientes">
+                    <i data-lucide="user" class="w-5 h-5"></i>
+                </a>
+                <a href="/#contacto" class="hidden sm:flex bg-brand-blue text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-brand-darkBlue transition-all shadow-glow">
+                    Contactar
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-12 lg:pt-40 lg:pb-16 px-4">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="text-brand-blue font-bold tracking-widest uppercase text-xs mb-4 block">Calculadora</span>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-semibold text-gray-900 tracking-tight leading-[1.1] mb-6">
+                Calcula tu <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-blue-400">Ahorro con IA</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-500 max-w-3xl mx-auto leading-relaxed">
+                Descubre cuanto puede ahorrar tu empresa automatizando tareas con inteligencia artificial. Introduce tus datos y obtendras una estimacion personalizada.
+            </p>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="pb-24 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-8">
+
+                <!-- Form -->
+                <div class="bg-white rounded-3xl p-8 shadow-soft border border-gray-100">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Datos de tu empresa</h2>
+
+                    <form id="roi-calculator" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Empleados en atencion al cliente
+                            </label>
+                            <input type="number" id="empleados" min="1" max="100" value="3"
+                                class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all text-lg">
+                            <p class="text-xs text-gray-500 mt-1">Personas dedicadas a llamadas, emails, chat, etc.</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Salario mensual promedio (bruto)
+                            </label>
+                            <div class="relative">
+                                <input type="number" id="salario" min="500" max="10000" value="1500"
+                                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all text-lg pr-10">
+                                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">EUR</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Horas/semana en tareas repetitivas
+                            </label>
+                            <input type="range" id="horas" min="5" max="40" value="15"
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-brand-blue">
+                            <div class="flex justify-between text-sm text-gray-500 mt-1">
+                                <span>5h</span>
+                                <span id="horas-value" class="font-semibold text-brand-blue">15h</span>
+                                <span>40h</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Llamadas perdidas al mes (estimado)
+                            </label>
+                            <input type="number" id="llamadas" min="0" max="1000" value="50"
+                                class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all text-lg">
+                            <p class="text-xs text-gray-500 mt-1">Llamadas no contestadas o abandonadas</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Valor promedio por cliente
+                            </label>
+                            <div class="relative">
+                                <input type="number" id="valorCliente" min="0" max="50000" value="200"
+                                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all text-lg pr-10">
+                                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">EUR</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">Facturacion media por cliente/proyecto</p>
+                        </div>
+
+                        <button type="button" onclick="calcularROI()"
+                            class="w-full bg-brand-blue text-white py-4 rounded-xl font-semibold text-lg hover:bg-brand-darkBlue transition-all shadow-glow">
+                            Calcular mi ahorro
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Results -->
+                <div class="bg-white rounded-3xl p-8 shadow-soft border border-gray-100">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Tu ahorro estimado</h2>
+
+                    <div id="resultados" class="space-y-6">
+                        <!-- Initial State -->
+                        <div id="estado-inicial" class="text-center py-12">
+                            <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="calculator" class="w-10 h-10 text-brand-blue"></i>
+                            </div>
+                            <p class="text-gray-500">Introduce tus datos y pulsa "Calcular mi ahorro" para ver los resultados</p>
+                        </div>
+
+                        <!-- Results (hidden initially) -->
+                        <div id="estado-resultados" class="hidden">
+                            <!-- Main number -->
+                            <div class="text-center p-6 bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-100 mb-6">
+                                <p class="text-sm text-gray-500 mb-1">Ahorro mensual estimado</p>
+                                <p class="text-5xl font-bold text-brand-blue" id="ahorro-mensual">0</p>
+                                <p class="text-sm text-gray-500 mt-2">EUR/mes</p>
+                            </div>
+
+                            <!-- Breakdown -->
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                            <i data-lucide="clock" class="w-5 h-5 text-green-600"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-gray-900">Ahorro en tiempo</p>
+                                            <p class="text-xs text-gray-500">Coste de horas liberadas</p>
+                                        </div>
+                                    </div>
+                                    <span class="font-semibold text-green-600" id="ahorro-tiempo">0 EUR</span>
+                                </div>
+
+                                <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                                            <i data-lucide="users" class="w-5 h-5 text-purple-600"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-gray-900">Clientes recuperados</p>
+                                            <p class="text-xs text-gray-500">Llamadas que no se pierden</p>
+                                        </div>
+                                    </div>
+                                    <span class="font-semibold text-purple-600" id="clientes-recuperados">0</span>
+                                </div>
+
+                                <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                                            <i data-lucide="trending-up" class="w-5 h-5 text-orange-600"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-gray-900">Ingresos rescatados</p>
+                                            <p class="text-xs text-gray-500">Por clientes que no pierdes</p>
+                                        </div>
+                                    </div>
+                                    <span class="font-semibold text-orange-600" id="ingresos-rescatados">0 EUR</span>
+                                </div>
+
+                                <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                            <i data-lucide="calendar" class="w-5 h-5 text-blue-600"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-gray-900">Horas liberadas/mes</p>
+                                            <p class="text-xs text-gray-500">Tiempo para tareas de valor</p>
+                                        </div>
+                                    </div>
+                                    <span class="font-semibold text-blue-600" id="horas-liberadas">0h</span>
+                                </div>
+                            </div>
+
+                            <!-- Annual projection -->
+                            <div class="mt-6 p-6 bg-gradient-to-r from-brand-blue to-blue-600 rounded-2xl text-white">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <p class="text-blue-100 text-sm">ROI anual proyectado</p>
+                                        <p class="text-3xl font-bold" id="roi-anual">0 EUR</p>
+                                    </div>
+                                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
+                                        <i data-lucide="rocket" class="w-8 h-8"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CTA -->
+                            <div class="mt-6 text-center">
+                                <a href="https://calendly.com/inteliteai/presentacion" target="_blank"
+                                    class="inline-block bg-brand-blue text-white px-8 py-4 rounded-full font-semibold hover:bg-brand-darkBlue transition-all shadow-glow">
+                                    Conseguir este ahorro
+                                </a>
+                                <p class="text-xs text-gray-500 mt-3">Consulta gratuita de 15 minutos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Section -->
+            <div id="chart-section" class="hidden mt-8 bg-white rounded-3xl p-8 shadow-soft border border-gray-100">
+                <h3 class="text-xl font-semibold text-gray-900 mb-6">Proyeccion de ahorro a 12 meses</h3>
+                <div style="position: relative; height: 300px; width: 100%;">
+                    <canvas id="roiChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="pb-24 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-soft">
+                <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-6">Como calculamos tu ahorro</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div>
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                            <i data-lucide="clock" class="w-6 h-6 text-brand-blue"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 mb-2">Ahorro en tiempo</h3>
+                        <p class="text-sm text-gray-600">Calculamos el coste por hora de tus empleados y lo multiplicamos por las horas que la IA puede automatizar. Asumimos que la IA puede absorber el 70% de las tareas repetitivas.</p>
+                    </div>
+                    <div>
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-4">
+                            <i data-lucide="phone-missed" class="w-6 h-6 text-purple-600"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 mb-2">Clientes recuperados</h3>
+                        <p class="text-sm text-gray-600">Las llamadas perdidas son oportunidades perdidas. Estimamos que el 30% de esas llamadas se pueden convertir en clientes con un agente de voz 24/7.</p>
+                    </div>
+                    <div>
+                        <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                            <i data-lucide="piggy-bank" class="w-6 h-6 text-orange-600"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 mb-2">Ingresos adicionales</h3>
+                        <p class="text-sm text-gray-600">Multiplicamos los clientes recuperados por tu valor promedio de cliente para estimar los ingresos que podrias rescatar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="pb-24 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-6">
+                Convierte estos numeros en realidad
+            </h2>
+            <p class="text-lg text-gray-500 mb-8 max-w-2xl mx-auto">
+                Nuestro equipo puede ayudarte a implementar estas soluciones de IA adaptadas a tu negocio. Agenda una llamada gratuita.
+            </p>
+            <a href="https://calendly.com/inteliteai/presentacion" target="_blank"
+                class="inline-block bg-brand-blue text-white px-10 py-5 rounded-full text-lg font-semibold hover:bg-brand-darkBlue transition-all shadow-glow">
+                Agendar llamada gratuita
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Update slider value display
+        document.getElementById('horas').addEventListener('input', function() {
+            document.getElementById('horas-value').textContent = this.value + 'h';
+        });
+
+        let roiChart = null;
+
+        function calcularROI() {
+            const empleados = parseInt(document.getElementById('empleados').value) || 3;
+            const salario = parseInt(document.getElementById('salario').value) || 1500;
+            const horas = parseInt(document.getElementById('horas').value) || 15;
+            const llamadas = parseInt(document.getElementById('llamadas').value) || 50;
+            const valorCliente = parseInt(document.getElementById('valorCliente').value) || 200;
+
+            // Calculations
+            const horasMes = 160;
+            const costeHora = salario / horasMes;
+            const horasAutomatizables = horas * 4 * empleados * 0.7; // 70% automatizable
+            const ahorroTiempo = Math.round(horasAutomatizables * costeHora);
+
+            const tasaConversion = 0.30; // 30% de llamadas perdidas se convierten
+            const clientesRecuperados = Math.round(llamadas * tasaConversion);
+            const ingresosRescatados = clientesRecuperados * valorCliente;
+
+            const ahorroTotal = ahorroTiempo + ingresosRescatados;
+            const roiAnual = ahorroTotal * 12;
+
+            // Update UI
+            document.getElementById('estado-inicial').classList.add('hidden');
+            document.getElementById('estado-resultados').classList.remove('hidden');
+            document.getElementById('chart-section').classList.remove('hidden');
+
+            document.getElementById('ahorro-mensual').textContent = ahorroTotal.toLocaleString('es-ES');
+            document.getElementById('ahorro-tiempo').textContent = ahorroTiempo.toLocaleString('es-ES') + ' EUR';
+            document.getElementById('clientes-recuperados').textContent = clientesRecuperados;
+            document.getElementById('ingresos-rescatados').textContent = ingresosRescatados.toLocaleString('es-ES') + ' EUR';
+            document.getElementById('horas-liberadas').textContent = Math.round(horasAutomatizables) + 'h';
+            document.getElementById('roi-anual').textContent = roiAnual.toLocaleString('es-ES') + ' EUR';
+
+            // Create/update chart
+            const ctx = document.getElementById('roiChart').getContext('2d');
+
+            const months = ['Mes 1', 'Mes 2', 'Mes 3', 'Mes 4', 'Mes 5', 'Mes 6', 'Mes 7', 'Mes 8', 'Mes 9', 'Mes 10', 'Mes 11', 'Mes 12'];
+            const cumulativeData = months.map((_, i) => ahorroTotal * (i + 1));
+
+            if (roiChart) {
+                roiChart.destroy();
+            }
+
+            roiChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: 'Ahorro acumulado (EUR)',
+                        data: cumulativeData,
+                        borderColor: '#006de7',
+                        backgroundColor: 'rgba(0, 109, 231, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#006de7',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y.toLocaleString('es-ES') + ' EUR';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value.toLocaleString('es-ES') + ' EUR';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Scroll to results on mobile
+            if (window.innerWidth < 768) {
+                document.getElementById('estado-resultados').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Auto-calculate on input change (debounced)
+        let debounceTimer;
+        const inputs = document.querySelectorAll('#roi-calculator input');
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    if (!document.getElementById('estado-resultados').classList.contains('hidden')) {
+                        calcularROI();
+                    }
+                }, 300);
+            });
+        });
+    </script>
+
+    <script>lucide.createIcons();</script>
+    <script type="module" src="js/chatbot.js"></script>
+</body>
+</html>
